@@ -4,11 +4,14 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
-  "dependencies": {},
   "devDependencies": {
     "@nrwl/nx-cloud": "latest",
+    "css-loader": "^6.7.3",
     "nx": "15.8.5",
-    "prettier": "^2.6.2"
+    "prettier": "^2.6.2",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   },
   "workspaces": [
     "packages/*"
