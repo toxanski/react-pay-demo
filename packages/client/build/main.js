@@ -1,1 +1,0 @@
-console.log({some:123,some2:3});
