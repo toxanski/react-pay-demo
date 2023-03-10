@@ -30,19 +30,18 @@ module.exports = (_, options) => {
                     ],
                 },
                 {
-                    test: /\.(js|jsx)$/,
-                    exclude: '/node_modules/',
-                    use: ['babel-loader'],
-                },
-                {
                     test: /\.(ts|tsx)$/,
-                    loader: 'ts-loader',
+                    exclude: /(node_modules)/,
+                    use: {
+                        loader: 'swc-loader',
+                    },
                 },
             ],
         },
         resolve: {
-            extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
+            extensions: ['.ts', '.tsx'],
         },
+        devtool: 'inline-source-map',
         devServer: {
             static: {
                 directory: path.join(__dirname, 'build'),
