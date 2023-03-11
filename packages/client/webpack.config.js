@@ -41,12 +41,12 @@ module.exports = (_, options) => ({
         ],
     },
     resolve: {
-        extensions: ['.ts', '.tsx'],
-    },
-    alias: {
-        '@pages': path.resolve(__dirname, 'src/pages'),
-        '@components': path.resolve(__dirname, 'src/components'),
-        '@shared': path.resolve(__dirname, 'src/shared'),
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        alias: {
+            '@pages': path.resolve(__dirname, 'src/pages'),
+            '@components': path.resolve(__dirname, 'src/components'),
+            '@shared': path.resolve(__dirname, 'src/shared'),
+        },
     },
     devtool: 'inline-source-map',
     devServer: {
