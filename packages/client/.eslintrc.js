@@ -30,10 +30,14 @@ module.exports = {
             node: {
                 extensions: ['.ts', '.tsx'],
             },
+            typescript: {
+                project: 'packages/client/tsconfig.json',
+            },
         },
     },
     rules: {
         '@typescript-eslint/no-var-requires': 0,
-        'react/react-in-jsx-scope': 'off',
+        'react/react-in-jsx-scope': 0,
+        'import/prefer-default-export': 0,
     },
 };

@@ -2,10 +2,17 @@
     "compilerOptions": {  
       "target": "ESNext",
       "lib": ["DOM", "DOM.Iterable", "ESNext"],
+      "moduleResolution": "node",
       "skipLibCheck": true,
       "jsx": "react-jsx",
       "strict": true,
-      "plugins": [{ "name": "typescript-plugin-css-modules" }]
+      "plugins": [{ "name": "typescript-plugin-css-modules" }],
+      "baseUrl": ".",
+      "paths": {
+          "@pages": ["src/pages"],
+          "@components": ["src/components"],
+          "@shared": ["src/shared"]
+      }
     },
     "include": ["src", "src/Global.d.ts"],
 }
