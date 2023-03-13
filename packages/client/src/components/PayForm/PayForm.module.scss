@@ -1,0 +1,30 @@
+.payForm {
+    background-color: var(--white-color);
+    padding: 48px 36px 50px;
+}
+
+.payFormBody {
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+.payFormTitle {
+    margin: 0;
+    margin-bottom: 25px;
+
+    font-size: 22px;
+    line-height: 26px;
+    color: var(--black-color);
+}
+
+.payFormControl {
+    margin-top: 35px;
+}
+
+.payFormDate {
+    max-width: 90px;
+}
+
+.payFormCvv {
+    max-width: 60px;
+}
