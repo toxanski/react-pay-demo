@@ -1,0 +1,13 @@
+.label {
+    position: absolute;
+    left: 0;
+    top: 7px;
+
+    font-size: 18px;
+    line-height: 21px;
+    color: var(--light-gray-color);
+    cursor: text;
+    white-space: nowrap;
+
+    transition: all .1s linear;
+}
