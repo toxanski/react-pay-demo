@@ -23,7 +23,9 @@ module.exports = (_, options) => ({
                     {
                         loader: 'css-loader',
                         options: {
-                            modules: true,
+                            modules: {
+                                localIdentName: '[local]--[hash:base64:5]',
+                            },
                         },
                     },
                     'sass-loader',
@@ -55,6 +57,12 @@ module.exports = (_, options) => ({
         },
         port: 3000,
         hot: true,
+        client: {
+            overlay: {
+                errors: true,
+                warnings: false,
+            },
+        },
     },
     plugins: [
         new HtmlWebpackPlugin({
