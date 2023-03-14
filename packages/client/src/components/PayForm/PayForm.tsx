@@ -9,6 +9,8 @@ import {
 import classnames from 'classnames';
 import { FormEvent } from 'react';
 import { useForm } from 'react-hook-form';
+import { normalizeCardNumber } from '../../lib/normalizeCardNumber';
+import { normalizeCardDate } from '../../lib/normalizeCardDate';
 import { INPUT_REQUIRED_MESSAGE } from './PayForm.consts';
 import styles from './PayForm.module.scss';
 
@@ -47,17 +49,21 @@ export function PayForm({ title }: PayFormProps) {
                 <div className={styles.payFormBody}>
                     <FormControl classNames={styles.payFormControl}>
                         <Input
-                            type="number"
+                            type="tel"
+                            maxLength={22}
                             invalid={!!errors.cardNum?.message}
                             {...register('cardNum', {
                                 required: INPUT_REQUIRED_MESSAGE,
                                 minLength: {
-                                    value: 13,
+                                    value: 16,
                                     message: 'Минимальная длина 13',
                                 },
-                                maxLength: {
-                                    value: 19,
-                                    message: 'Максимальная длина 19',
+                                onChange(event) {
+                                    const {
+                                        target: { value },
+                                    } = event;
+                                    event.target.value =
+                                        normalizeCardNumber(value);
                                 },
                             })}
                         />
@@ -73,12 +79,23 @@ export function PayForm({ title }: PayFormProps) {
                             )}
                         >
                             <Input
+                                type="tel"
+                                maxLength={5}
                                 invalid={!!errors.date?.message}
                                 {...register('date', {
                                     required: INPUT_REQUIRED_MESSAGE,
-                                    // pattern: {
+                                    onChange(event) {
+                                        const {
+                                            target: { value },
+                                        } = event;
 
-                                    // }
+                                        event.target.value =
+                                            normalizeCardDate(value);
+                                    },
+                                    pattern: {
+                                        value: /^(0[1-9]|1[0-2])\/(2[1-6])$/,
+                                        message: 'Введите валидную дату',
+                                    },
                                 })}
                             />
                             <FormLabel htmlFor="date">Месяц/Год</FormLabel>
@@ -91,12 +108,20 @@ export function PayForm({ title }: PayFormProps) {
                             )}
                         >
                             <Input
+                                type="number"
+                                inputMode="numeric"
+                                maxLength={3}
+                                max="999"
+                                min="000"
+                                pattern="[0-9]*"
                                 invalid={!!errors.code?.message}
+                                className={styles.payFormCvv}
                                 {...register('code', {
                                     required: INPUT_REQUIRED_MESSAGE,
                                     // pattern: {
-
-                                    // }
+                                    //     value: /[0-9]*/g,
+                                    //     message: 'Не валидный код',
+                                    // },
                                 })}
                             />
                             <FormLabel htmlFor="code">Код</FormLabel>

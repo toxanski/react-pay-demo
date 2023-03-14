@@ -43,5 +43,6 @@ module.exports = {
         'react/require-default-props': 0,
         'no-restricted-syntax': 0,
         'react/jsx-props-no-spreading': 0,
+        'no-param-reassign': [2, { props: false }],
     },
 };

@@ -1,28 +1,20 @@
 import classnames from 'classnames';
-import { ForwardedRef, forwardRef, HTMLInputTypeAttribute } from 'react';
+import { ForwardedRef, forwardRef, InputHTMLAttributes } from 'react';
 import styles from './Input.module.scss';
 
-interface InputProps {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     className?: string;
     invalid?: boolean;
-    type?: HTMLInputTypeAttribute;
     withCounter?: boolean;
 }
 
 const Input = forwardRef(
     (
-        {
-            className,
-            invalid,
-            type = 'text',
-            withCounter = false,
-            ...props
-        }: InputProps,
+        { className, invalid, withCounter = false, ...props }: InputProps,
         ref: ForwardedRef<HTMLInputElement>
     ) => (
         <input
             ref={ref}
-            type={type}
             {...props}
             className={classnames(className, styles.input, {
                 [styles.error]: invalid,

@@ -27,4 +27,7 @@
 
 .payFormCvv {
     max-width: 60px;
+    & > input {
+        -webkit-text-security: disc;
+    }
 }
