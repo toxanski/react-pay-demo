@@ -15,10 +15,10 @@ import { INPUT_REQUIRED_MESSAGE } from './PayForm.consts';
 import styles from './PayForm.module.scss';
 
 interface PayFormInputs {
-    cardNum: number;
-    date: string;
-    code: number;
-    userInfo: string;
+    pan: number;
+    expire: string;
+    cvc: number;
+    cardholder: string;
 }
 
 interface PayFormProps {
@@ -51,8 +51,9 @@ export function PayForm({ title }: PayFormProps) {
                         <Input
                             type="tel"
                             maxLength={22}
-                            invalid={!!errors.cardNum?.message}
-                            {...register('cardNum', {
+                            id="pan"
+                            invalid={!!errors.pan?.message}
+                            {...register('pan', {
                                 required: INPUT_REQUIRED_MESSAGE,
                                 minLength: {
                                     value: 16,
@@ -67,22 +68,23 @@ export function PayForm({ title }: PayFormProps) {
                                 },
                             })}
                         />
-                        <FormLabel htmlFor="cardNum">Номер карты</FormLabel>
-                        <FormErrorMessage error={errors.cardNum} />
+                        <FormLabel htmlFor="pan">Номер карты</FormLabel>
+                        <FormErrorMessage error={errors.pan} />
                     </FormControl>
 
                     <FormGroup>
                         <FormControl
                             classNames={classnames(
                                 styles.payFormControl,
-                                styles.payFormDate
+                                styles.payFormExpire
                             )}
                         >
                             <Input
                                 type="tel"
+                                id="expire"
                                 maxLength={5}
-                                invalid={!!errors.date?.message}
-                                {...register('date', {
+                                invalid={!!errors.expire?.message}
+                                {...register('expire', {
                                     required: INPUT_REQUIRED_MESSAGE,
                                     onChange(event) {
                                         const {
@@ -98,50 +100,59 @@ export function PayForm({ title }: PayFormProps) {
                                     },
                                 })}
                             />
-                            <FormLabel htmlFor="date">Месяц/Год</FormLabel>
-                            <FormErrorMessage error={errors.date} />
+                            <FormLabel htmlFor="expire">Месяц/Год</FormLabel>
+                            <FormErrorMessage error={errors.expire} />
                         </FormControl>
                         <FormControl
                             classNames={classnames(
                                 styles.payFormControl,
-                                styles.payFormCvv
+                                styles.payFormCvc
                             )}
                         >
                             <Input
-                                type="number"
-                                inputMode="numeric"
+                                type="password"
+                                autoComplete="off"
+                                id="cvc"
                                 maxLength={3}
-                                max="999"
-                                min="000"
-                                pattern="[0-9]*"
-                                invalid={!!errors.code?.message}
-                                className={styles.payFormCvv}
-                                {...register('code', {
+                                invalid={!!errors.cvc?.message}
+                                {...register('cvc', {
                                     required: INPUT_REQUIRED_MESSAGE,
-                                    // pattern: {
-                                    //     value: /[0-9]*/g,
-                                    //     message: 'Не валидный код',
-                                    // },
+                                    onChange(event) {
+                                        event.target.value =
+                                            event.target.value.replace(
+                                                /\D/,
+                                                ''
+                                            );
+                                    },
+                                    // NOTE: minLength работает некорректно
+                                    pattern: {
+                                        value: /[0-9]{3}/,
+                                        message: INPUT_REQUIRED_MESSAGE,
+                                    },
                                 })}
                             />
-                            <FormLabel htmlFor="code">Код</FormLabel>
-                            <FormErrorMessage error={errors.code} />
+                            <FormLabel htmlFor="cvc">Код</FormLabel>
+                            <FormErrorMessage error={errors.cvc} />
                         </FormControl>
                     </FormGroup>
 
                     <FormControl classNames={styles.payFormControl}>
                         <Input
-                            invalid={!!errors.userInfo?.message}
-                            {...register('userInfo', {
+                            id="cardholder"
+                            className={styles.payFormCardHolderField}
+                            invalid={!!errors.cardholder?.message}
+                            {...register('cardholder', {
                                 required: INPUT_REQUIRED_MESSAGE,
                                 pattern: {
-                                    value: /^[а-яА-Яa-zA-Z ]*$/,
+                                    value: /^[a-zA-Z]+\s[a-zA-Z]+$/,
                                     message: 'Введите корректное имя',
                                 },
                             })}
                         />
-                        <FormLabel htmlFor="userInfo">Владелец карты</FormLabel>
-                        <FormErrorMessage error={errors.userInfo} />
+                        <FormLabel htmlFor="cardholder">
+                            Владелец карты
+                        </FormLabel>
+                        <FormErrorMessage error={errors.cardholder} />
                     </FormControl>
 
                     <Button type="submit">Оплатить</Button>

@@ -21,13 +21,17 @@
     margin-top: 35px;
 }
 
-.payFormDate {
+.payFormExpire {
     max-width: 90px;
 }
 
-.payFormCvv {
+.payFormCvc {
     max-width: 60px;
     & > input {
-        -webkit-text-security: disc;
+        text-align: center;
     }
+}
+
+.payFormCardHolderField {
+    text-transform: uppercase;
 }
